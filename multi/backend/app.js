@@ -84,7 +84,10 @@ app.delete('/goals/:id', async (req, res) => {
 });
 
 mongoose.connect(
-  'mongodb://localhost:27017/course-goals',
+  // 'mongodb://localhost:27017/course-goals',
+  // 'mongodb://host.docker.internal:27017/course-goals',
+  // 'mongodb://mongoRoot:mongoPassword@mongodb:27017/course-goals?authSource=admin', // 동일 네트워크의 경우 컨테이너 이름으로 ip 주소를 대신한다.
+  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
