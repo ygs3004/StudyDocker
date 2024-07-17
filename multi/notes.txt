@@ -1,0 +1,38 @@
+ # network
+ docker network create goals-net
+
+ ---
+
+# mongo before create network
+docker run --name mongodb --rm -d -p 27017:27017 mongo 
+# mongo after create network
+docker run --name mongodb --rm -d --network goals-net mongo 
+# volume 이용 데이터 유지
+docker run --name mongodb -v data:/data/db --rm -d --network goals-net mongo 
+# env 이용 ROOT 계정 사용
+docker run --name mongodb -v data:/data/db --rm -d --network goals-net  -e MONGO_INITDB_ROOT_USERNAME=mongoRoot -e MONGO_INITDB_ROOT_PASSWORD=mongoPassword mongo 
+
+---
+
+
+# backend before create network
+docker run --name goals-backend --rm -d -p 80:80 goals-node
+
+# backend after create network
+# network 를 사용하여 mongodb, 80 port expose 하여 frontend 의 요청을 받는다.
+docker run --name goals-backend --rm -d -p 80:80 --network goals-net goals-node
+
+# log 파일 볼륨 설정, 호스트 머신 파일과 동기화(개발환경을 위해)
+docker run --name goals-backend -v /home/ygs/StudyDocker/multi/backend:/app -v /app/node_modules -v logs:/app/logs --rm -d -p 80:80 --network goals-net goals-node
+
+# 환경변수추가(없을시 default 값)
+docker run --name goals-backend -v /home/ygs/StudyDocker/multi/backend:/app -v /app/node_modules -v logs:/app/logs -e MONGODB_USERNAME=mongoRoot --rm -d -p 80:80 --network goals-net goals-node
+
+
+---
+
+# frontend (react 의 경우 -it 필수)
+docker run --name goals-frontend --rm -d -p 3000:3000 -it goals-react
+
+# frontend  개발환경, node_modules를 위하여 volume 적용
+docker run -v /home/ygs/StudyDocker/multi/frontend/src:/app/src --name goals-frontend --rm -d -p 3000:3000 -it goals-react
