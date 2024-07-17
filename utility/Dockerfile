@@ -13,4 +13,4 @@ ENTRYPOINT ["npm"]
 
 # Entry 설정 이후
 # docker run -it -v /home/ygs/StudyDocker/utility:/app mynpm init
-# docker run -it -v /home/ygs/StudyDocker/utility:/app mynpm install expresss
+# docker run -it -v /home/ygs/StudyDocker/utility:/app mynpm install expresss --save
