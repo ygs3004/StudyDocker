@@ -7,7 +7,13 @@ services:
       - "8000:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-#  php:
+  php:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    volumes:
+      - ./src:/var/www/html:delegated # 컨테이너쪽 파일 시스템 내용이 최신, 컨테이너 변경사항이 호스트쪽에 반영 시 시간이 걸릴 수 있음
+
 #  mysql:
 #  composer:
 #  artisan:
