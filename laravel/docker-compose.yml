@@ -21,8 +21,13 @@ services:
     env_file:
       - ./env/mysql.env
 
+  composer:
+    build:
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+    volumes:
+      - ./src:/var/www/html
+# docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
 
-#  mysql:
-#  composer:
 #  artisan:
 #  npm:
