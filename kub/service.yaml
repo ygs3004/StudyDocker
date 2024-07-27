@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: second-app
+    tier: backend
+  ports:
+    - protocol: 'TCP'
+      # 외부
+      port: 80
+      # 내부
+      targetPort: 8080
+#    - protocol: 'TCP'
+#      port: 443
+#      targetPort: 443
+  type: LoadBalancer
+
+
+# deployment 에 의해 pod 생성
+# service 객체는 pod 을 외부로 노출
+# kubectl apply -f service.yaml

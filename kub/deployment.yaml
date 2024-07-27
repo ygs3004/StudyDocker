@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+# Deployment spec
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: second-app
+      tier: backend
+  template:
+    # pod
+    metadata:
+      labels:
+        # custom key value
+        app: second-app
+        tier: backend
+    # pod spec
+    spec:
+      containers:
+        # container list
+        - name:  second-node
+          image: ygs3004/kub-first-app:2
+      # - name:
+      #  image:
+
+# yaml 파일 이용
+# kubectl apply -f=deployment.yaml
+
+# 선언형 리소스 제거
+# kubectl delete -f=${file-name}
