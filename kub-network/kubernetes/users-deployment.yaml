@@ -17,8 +17,4 @@ spec:
           image: ygs3004/kub-demo-users:latest
           env:
             - name: AUTH_ADDRESS
-              value: localhost
-        - name: auth
-          image: ygs3004/kub-demo-auth:latest
-
-
+              value: 10.108.116.130
