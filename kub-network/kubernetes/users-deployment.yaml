@@ -17,4 +17,6 @@ spec:
           image: ygs3004/kub-demo-users:latest
           env:
             - name: AUTH_ADDRESS
-              value: 10.108.116.130
+              value: "auth-service.default"
+#              value: "${service-name.namespace}"
+#              value: 10.108.116.130
